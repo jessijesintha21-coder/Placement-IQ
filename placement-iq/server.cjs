@@ -8,11 +8,15 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://jessijesintha21_db_user:Jessica@cluster0.nemqbs3.mongodb.net/')
+mongoose.connect('mongodb+srv://jessijesintha21_db_user:Jessica@cluster0.nemqbs3.mongodb.net/placement_iq?retryWrites=true&w=majority')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-app.post('/api/evaluate', (req, res) => {
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
+
+app.post('/api/evaluate', async (req, res) => {
   const { marks, cgpa, skills, certificates } = req.body;
 
   const marksNum = parseFloat(marks) || 0;
