@@ -8,7 +8,7 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/placementIQ')
+mongoose.connect('mongodb+srv://jessijesintha21_db_user:Jessica@cluster0.nemqbs3.mongodb.net/')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
