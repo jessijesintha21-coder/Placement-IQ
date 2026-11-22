@@ -1,11 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+mongoose.connect('mongodb://localhost:27017/placementIQ')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
 
 app.post('/api/evaluate', (req, res) => {
   const { marks, cgpa, skills, certificates } = req.body;
@@ -29,9 +34,9 @@ app.post('/api/evaluate', (req, res) => {
 
   res.json({
     score: finalScore,
-    role: roleMeta.title,
-    minLpa: roleMeta.min,
-    maxLpa: roleMeta.max
+    title: roleMeta.title,
+    min: roleMeta.min,
+    max: roleMeta.max
   });
 });
 

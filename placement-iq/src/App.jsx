@@ -13,6 +13,8 @@ const CERTIFICATES_COLLECTION = [
   "Scrum Master", "AI Specialization", "IBM Data Science"
 ];
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 export default function App() {
   const [currentStep, setCurrentStep] = useState(1);
   const [marks, setMarks] = useState('');
@@ -37,7 +39,7 @@ export default function App() {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/evaluate', {
+      const response = await fetch(`${API_URL}/api/evaluate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -53,7 +55,6 @@ export default function App() {
       console.error('Backend connection failed, using local fallback:', err);
     }
     
-    // பேக் எண்ட் பதில் வரவில்லை என்றால் உள்ளூர் கணக்கீடு
     const computed = Math.min(100, Math.round((m * 0.35) + (c * 6.5) + (selectedSkills.length * 2.5) + (selectedCerts.length * 2)));
     
     let roleMeta = { title: "Associate Software Engineer", min: "3.5", max: "6.0" };
